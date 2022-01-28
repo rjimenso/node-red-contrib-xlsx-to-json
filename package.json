@@ -10,6 +10,7 @@
   "license": "ISC",
   "keywords": [ "node-red" ],
   "node-red": {
+    "version": ">=1.0.0",
     "nodes": {
       "xlsxtojson": "xlsx-to-json.js"
     }
