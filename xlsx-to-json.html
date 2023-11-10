@@ -52,7 +52,8 @@
     <p> <b> Castellano </b></p>
     <p> Nodo para convertir en JSON un archivo xlsx, pudiendo seleccionar una pestaña o un rango específico del excel.</p>
     <p> Los parámetros que necesita para funcionar son: </p>
-    <p><b>msg.filepath:</b> La ruta donde se encuentra el archivo xlsx</p>
+    <p><b>msg.payload:</b> Un objeto buffer opcional que contiene el archivo xlsx</p>
+    <p><b>msg.filepath:</b> Si no se detecta ningún búfer, la ruta donde se encuentra el archivo xlsx</p>
     <p><b>msg.rangecell:</b> Opcional. El rango de celdas que se leeran del excel. Ejemplo -> "A2:M6"</p>
     <p><b>msg.columkey:</b> Opcional. La cabecera para cada columna que se va a leer. Es un objeto. Ejemplo -> {"A":"Titulo","B":"Descripción"}</p>
     <p><b>msg.sheet:</b> El nombre de la hoja del libro que se van a leer. Ejemplo -> Hoja 1</p>
@@ -60,7 +61,8 @@
     <p> <b> English </b></p>
     <p> Node to convert an xlsx file into JSON, being able to select a tab or a specific range of excel.</p>
     <p> The parameters it needs to work are: </p>
-    <p><b>msg.filepath:</b>The path where the xlsx file is located</p>
+    <p><b>msg.payload:</b> An optional buffered object containing the xlsx file</p>
+    <p><b>msg.filepath:</b> If no buffer is detected, the path where the xlsx file is located</p>
     <p><b>msg.rangecell:</b> Optional. The range of cells to be read from excel. Example -> "A2:M6"</p>
     <p><b>msg.columkey:</b> Optional. The header for each column to be read. Its an object. Example -> {"A":"Titulo","B":"Descripción"}</p>
     <p><b>msg.sheet:</b> The name of the book sheets to be read. Example -> Sheet 1</p>
