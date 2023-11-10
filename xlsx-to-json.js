@@ -9,13 +9,15 @@ module.exports = function(RED){
 
         var node = this;
         node.on('input', function(msg){
-            if(!node.filepath){
-                node.filepath = msg.filepath;
-            }
+            const excelToJson = require('convert-excel-to-json');
+            let result = {};
+            let columnas;
+            const defaultColumn = '{"*": "{{columnHeader}}"}';
 
             if (!node.rangecell){
                 node.rangecell = msg.rangecell;
             }
+
             if(!node.columnkey){
                 node.columnkey = msg.columnkey;
             }
@@ -23,23 +25,31 @@ module.exports = function(RED){
             if (!node.sheet){
                 node.sheet = msg.sheet;
             }
-            const excelToJson = require('convert-excel-to-json');
-            let result = {};
-            let columnas;
-            const defaultColumn = '{"*": "{{columnHeader}}"}';
 
-             if(node.columnkey){
+            if(node.columnkey){
                 columnas = JSON.parse(node.columnkey);
-            }else{
-                
+            } else {
                 columnas = JSON.parse(defaultColumn);
             } 
-            result = excelToJson({
-                sourceFile: node.filepath,
-                range: node.rangecell,
-                columnToKey: columnas
-               // sheets: node.sheet
-            })
+
+            if (msg.hasOwnProperty('payload') && Buffer.isBuffer(msg.payload)) {
+                result = excelToJson({
+                    source: Buffer.from(msg.payload),
+                    range: node.rangecell,
+                    columnToKey: columnas
+                // sheets: node.sheet
+                })
+            } else {      
+                if(!node.filepath){
+                    node.filepath = msg.filepath;
+                }
+                result = excelToJson({
+                    sourceFile: node.filepath,
+                    range: node.rangecell,
+                    columnToKey: columnas
+                // sheets: node.sheet
+                })
+            }
             if (node.sheet){
                 msg.payload = result[node.sheet];
             }else{
